@@ -1,5 +1,3 @@
-# face_eye_detection.py
-
 import cv2
 import mediapipe as mp
 from jetson_inference import detectNet, imageNet
@@ -84,20 +82,46 @@ class FaceEyeDetector:
         # Ensure valid dimensions before cropping
         if x_max > x_min and y_max > y_min:
             eye_img = np_img[y_min:y_max, x_min:x_max]
-            #eye_img = cv2.cvtColor(eye_img, cv2.COLOR_RGB2GRAY)
-            #eye_img = cv2.cvtColor(eye_img, cv2.COLOR_GRAY2RGB)
+
+            # Classify the cropped eye
             cropped_eye = cudaAllocMapped(width=eye_img.shape[1], height=eye_img.shape[0], format="rgb8")
             cudaCrop(img, cropped_eye, (x_min, y_min, x_max, y_max))
 
-            # Classify the eye
             class_idx, confidence = self.eye_classification.Classify(cropped_eye)
             class_desc = self.eye_classification.GetClassDesc(class_idx)
 
-            # Add classification result text to the eye image
+            # Add classification result text to the eye image before conversion to grayscale or display
             font_color = (255, 0, 0) if class_desc.lower() == "close" else (0, 255, 0)
             cv2.putText(eye_img, f"{class_desc}: {confidence * 100:.2f}%", (10, 20), 
                         cv2.FONT_HERSHEY_SIMPLEX, 0.5, font_color, 2)
 
+            # Return the classified eye image with text overlay
             return class_desc.lower(), eye_img
 
         return "unknown", None
+
+    def resize_eye_images(self, left_eye_img, right_eye_img):
+        # Get the minimum height of the two images
+        min_height = min(left_eye_img.shape[0], right_eye_img.shape[0])
+        left_eye_img = cv2.resize(left_eye_img, (left_eye_img.shape[1], min_height))
+        right_eye_img = cv2.resize(right_eye_img, (right_eye_img.shape[1], min_height))
+        return left_eye_img, right_eye_img
+
+    def display_face_and_eyes(self, cropped_face, left_eye_img, right_eye_img):
+        if cropped_face is not None:
+            cropped_face_rgb = cv2.cvtColor(cropped_face, cv2.COLOR_BGR2RGB)
+            cv2.imshow("Face", cropped_face_rgb)
+
+        if left_eye_img is not None and right_eye_img is not None:
+            # Convert to RGB and display the images with the text overlay
+            left_eye_img_rgb = cv2.cvtColor(left_eye_img, cv2.COLOR_BGR2RGB)
+            right_eye_img_rgb = cv2.cvtColor(right_eye_img, cv2.COLOR_BGR2RGB)
+
+            # Resize eye images to ensure same height
+            left_eye_img_rgb, right_eye_img_rgb = self.resize_eye_images(left_eye_img_rgb, right_eye_img_rgb)
+
+            # Combine left and right eye images horizontally and display them
+            eyes_combined = cv2.hconcat([left_eye_img_rgb, right_eye_img_rgb])
+            eyes_combined_resized = cv2.resize(eyes_combined, (600, 300))  # Specify desired width and height
+
+            cv2.imshow("Eyes", eyes_combined_resized)
