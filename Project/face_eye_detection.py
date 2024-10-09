@@ -84,6 +84,8 @@ class FaceEyeDetector:
         # Ensure valid dimensions before cropping
         if x_max > x_min and y_max > y_min:
             eye_img = np_img[y_min:y_max, x_min:x_max]
+            #eye_img = cv2.cvtColor(eye_img, cv2.COLOR_RGB2GRAY)
+            #eye_img = cv2.cvtColor(eye_img, cv2.COLOR_GRAY2RGB)
             cropped_eye = cudaAllocMapped(width=eye_img.shape[1], height=eye_img.shape[0], format="rgb8")
             cudaCrop(img, cropped_eye, (x_min, y_min, x_max, y_max))
 
