@@ -11,7 +11,7 @@ def main():
     labels = "/home/jetson/jetson-inference/data/networks/sleep/labels.txt"
 
     # Initialize video source (camera) and video output (display)
-    camera = videoSource("/dev/video1")
+    camera = videoSource("/dev/video0")
     display = videoOutput("display://0")
 
     # Initialize face and eye detector with adjustable parameters
