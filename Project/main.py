@@ -1,50 +1,18 @@
 import cv2
-import time
-import Jetson.GPIO as GPIO
 from face_eye_detection import FaceEyeDetector
 from jetson_utils import videoSource, videoOutput, cudaDeviceSynchronize
-
-# Pin Definitions
-green_led_pin = 11  # BOARD pin 33
-yellow_led_pin = 13  # BOARD pin 35
-red_led_pin = 15  # BOARD pin 37
-
-# Pin Setup
-GPIO.setmode(GPIO.BOARD)  # Use physical pin-numbering scheme
-GPIO.setup(green_led_pin, GPIO.OUT)  # Green LED pin set as output
-GPIO.setup(yellow_led_pin, GPIO.OUT)  # Yellow LED pin set as output
-GPIO.setup(red_led_pin, GPIO.OUT)  # Red LED pin set as output
-
-# LED control functions
-def turn_on_green():
-    GPIO.output(green_led_pin, GPIO.HIGH)
-    GPIO.output(yellow_led_pin, GPIO.LOW)
-    GPIO.output(red_led_pin, GPIO.LOW)
-
-def turn_on_yellow():
-    GPIO.output(green_led_pin, GPIO.LOW)
-    GPIO.output(yellow_led_pin, GPIO.HIGH)
-    GPIO.output(red_led_pin, GPIO.LOW)
-
-def turn_on_red():
-    GPIO.output(green_led_pin, GPIO.LOW)
-    GPIO.output(yellow_led_pin, GPIO.LOW)
-    GPIO.output(red_led_pin, GPIO.HIGH)
-
-def turn_off_all():
-    GPIO.output(green_led_pin, GPIO.LOW)
-    GPIO.output(yellow_led_pin, GPIO.LOW)
-    GPIO.output(red_led_pin, GPIO.LOW)
+import time
+import utils  # Updated file for device control LEDs
 
 def main():
-    # Initialize variables and settings that are adjustable
+    # Initialize variables and settings
     eye_margin_x = 15
     eye_margin_y = 20
     face_model = "facedetect"
     eye_model = "/home/jetson/jetson-inference/data/networks/sleep/resnet18.onnx"
     labels = "/home/jetson/jetson-inference/data/networks/sleep/labels.txt"
 
-    # Initialize video source (camera) and video output (display)
+    # Initialize video source and output
     camera = videoSource("/dev/video0")
     display = videoOutput("display://0")
 
@@ -57,43 +25,38 @@ def main():
         labels=labels
     )
 
-    closed_start_time = None  # Track when both eyes are closed
-    close_duration_threshold = 3  # 3 seconds threshold for red LED
+    eyes_closed_duration = 0  # Track the duration both eyes are closed
+    close_start_time = None   # Start time when both eyes are closed
 
     while display.IsStreaming():
         img = camera.Capture()
-
         if img is None:
+            utils.turn_off_all()  # No face detected, turn off all LEDs
             continue
 
         # Detect and classify the state of the eyes
-        left_eye_state, right_eye_state, cropped_face, left_eye_img, right_eye_img = face_eye_detector.detect_and_classify(img)
+        left_eye_state, right_eye_state, _, _, _ = face_eye_detector.detect_and_classify(img)
 
-        # Synchronize to ensure GPU is finished before rendering
-        cudaDeviceSynchronize()
+        # If both eyes are open
+        if left_eye_state == "open" and right_eye_state == "open":
+            utils.turn_on_green()  # Turn on green LED
+            close_start_time = None  # Reset closed duration
+        # If both eyes are closed
+        elif left_eye_state == "close" and right_eye_state == "close":
+            if close_start_time is None:
+                close_start_time = time.time()  # Mark when eyes closed
 
-        # If no face is detected, turn off all LEDs
-        if cropped_face is None:
-            turn_off_all()
-        else:
-            # Check if both eyes are open or closed
-            if left_eye_state == "open" and right_eye_state == "open":
-                turn_on_green()
-                closed_start_time = None  # Reset closed timer
-            elif left_eye_state == "close" and right_eye_state == "close":
-                turn_on_yellow()
-                
-                if closed_start_time is None:
-                    closed_start_time = time.time()  # Start timing how long eyes are closed
-                elif time.time() - closed_start_time >= close_duration_threshold:
-                    turn_on_red()  # Both eyes have been closed for 3 seconds
+            eyes_closed_duration = time.time() - close_start_time
+            if eyes_closed_duration >= 3:
+                utils.turn_on_red()  # Turn on red LED if closed for 3 seconds
             else:
-                closed_start_time = None  # Reset if eyes are not consistently closed
+                utils.turn_on_yellow()  # Turn on yellow LED otherwise
+        # If only one eye is closed
+        else:
+            utils.turn_off_all()  # Turn off all LEDs
 
-        # Display the cropped face and combined eyes
-        face_eye_detector.display_face_and_eyes(cropped_face, left_eye_img, right_eye_img)
-
-        # Render the original image
+        # Synchronize GPU and render image
+        cudaDeviceSynchronize()
         display.Render(img)
         display.SetStatus(f"Face & Eye Detection | Network {face_eye_detector.face_detection.GetNetworkFPS():.0f} FPS")
 
@@ -101,7 +64,7 @@ def main():
             break
 
     cv2.destroyAllWindows()
-    GPIO.cleanup()  # Cleanup all GPIO
+    utils.cleanup()  # Clean up GPIO on exit
 
 if __name__ == "__main__":
     main()
