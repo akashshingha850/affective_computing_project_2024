@@ -122,6 +122,17 @@ class FaceEyeDetector:
 
             # Combine left and right eye images horizontally and display them
             eyes_combined = cv2.hconcat([left_eye_img_rgb, right_eye_img_rgb])
-            eyes_combined_resized = cv2.resize(eyes_combined, (600, 300))  # Specify desired width and height
+            eyes_combined_resized = cv2.resize(eyes_combined, (600, 300))
 
             cv2.imshow("Eyes", eyes_combined_resized)
+
+        cv2.waitKey(1)  # Add this line to process the GUI events
+
+    def cleanup(self):
+        # Perform any necessary cleanup here
+        cv2.destroyAllWindows()  # Close any open OpenCV windows
+        self.face_mesh.close()
+        self.face_detection = None
+        self.eye_classification = None
+
+        

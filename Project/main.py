@@ -28,43 +28,51 @@ def main():
     eyes_closed_duration = 0  # Track the duration both eyes are closed
     close_start_time = None   # Start time when both eyes are closed
 
-    while display.IsStreaming():
-        img = camera.Capture()
-        if img is None:
-            utils.turn_off_all()  # No face detected, turn off all LEDs
-            continue
+    try:
+        while display.IsStreaming():
+            img = camera.Capture()
+            if img is None:
+                utils.turn_off_all()  # No face detected, turn off all LEDs
+                continue
 
-        # Detect and classify the state of the eyes
-        left_eye_state, right_eye_state, _, _, _ = face_eye_detector.detect_and_classify(img)
+            # Detect and classify the state of the eyes
+            left_eye_state, right_eye_state, cropped_face, left_eye_img, right_eye_img = face_eye_detector.detect_and_classify(img)
 
-        # If both eyes are open
-        if left_eye_state == "open" and right_eye_state == "open":
-            utils.turn_on_green()  # Turn on green LED
-            close_start_time = None  # Reset closed duration
-        # If both eyes are closed
-        elif left_eye_state == "close" and right_eye_state == "close":
-            if close_start_time is None:
-                close_start_time = time.time()  # Mark when eyes closed
+            # LED control logic
+            if left_eye_state == "open" and right_eye_state == "open":
+                utils.turn_on_green()  # Turn on green LED
+                close_start_time = None  # Reset closed duration
+            elif left_eye_state == "close" and right_eye_state == "close":
+                if close_start_time is None:
+                    close_start_time = time.time()  # Mark when eyes closed
 
-            eyes_closed_duration = time.time() - close_start_time
-            if eyes_closed_duration >= 3:
-                utils.turn_on_red()  # Turn on red LED if closed for 3 seconds
+                eyes_closed_duration = time.time() - close_start_time
+                if eyes_closed_duration >= 3:
+                    utils.turn_on_red()  # Turn on red LED if closed for 3 seconds
+                else:
+                    utils.turn_on_yellow()  # Turn on yellow LED otherwise
             else:
-                utils.turn_on_yellow()  # Turn on yellow LED otherwise
-        # If only one eye is closed
-        else:
-            utils.turn_off_all()  # Turn off all LEDs
+                utils.turn_off_all()  # Turn off all LEDs
 
-        # Synchronize GPU and render image
-        cudaDeviceSynchronize()
-        display.Render(img)
-        display.SetStatus(f"Face & Eye Detection | Network {face_eye_detector.face_detection.GetNetworkFPS():.0f} FPS")
+            # Synchronize GPU and render image
+            cudaDeviceSynchronize()
+            display.Render(img)
+            display.SetStatus(f"Face & Eye Detection | Network {face_eye_detector.face_detection.GetNetworkFPS():.0f} FPS")
 
-        if cv2.waitKey(1) == ord('q'):
-            break
+            # Display images using OpenCV
+            face_eye_detector.display_face_and_eyes(cropped_face, left_eye_img, right_eye_img)
 
-    cv2.destroyAllWindows()
-    utils.cleanup()  # Clean up GPIO on exit
+            if cv2.waitKey(1) == ord('q'):
+                break
+
+    except Exception as e:
+        print(f"An error occurred: {e}")
+
+    finally:
+        # Perform cleanup
+        face_eye_detector.cleanup()  # Cleanup face and eye detector resources
+        cv2.destroyAllWindows()  # Ensure any OpenCV windows are closed
+        utils.cleanup()  # Clean up GPIO on exit
 
 if __name__ == "__main__":
     main()
