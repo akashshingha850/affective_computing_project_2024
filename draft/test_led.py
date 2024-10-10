@@ -34,6 +34,12 @@ def turn_off_red():
 print("Starting LED sequence. Press CTRL+C to exit.")
 try:
     while True:
+        # # Turn on  LED, turn off others
+        # turn_off_green()
+        # turn_on_yellow()
+        # turn_off_red()
+        # time.sleep(2)  # Keep Green on for 1 second
+
         # Turn on Green LED, turn off others
         turn_on_green()
         turn_off_yellow()
@@ -51,6 +57,7 @@ try:
         turn_off_yellow()
         turn_on_red()
         time.sleep(2)  # Keep Red on for 1 second
+
 except KeyboardInterrupt:
     print("Exiting LED sequence.")
 finally:
