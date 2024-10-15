@@ -1,3 +1,5 @@
+#utils.py
+
 import time
 import Jetson.GPIO as GPIO
 import atexit
@@ -6,7 +8,7 @@ import atexit
 green_led_pin = 11  # BOARD pin 33
 yellow_led_pin = 13  # BOARD pin 35
 red_led_pin = 15    # BOARD pin 37
-buzzer_pin = 38     # BOARD pin 38 
+buzzer_pin = 40     # BOARD pin 38 
 
 # Setup GPIO pins
 GPIO.setmode(GPIO.BOARD)

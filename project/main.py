@@ -1,8 +1,8 @@
 import cv2
+import utils  # Handles LED and GPIO control
 from face_eye_detection import FaceEyeDetector
 from jetson_utils import videoSource, videoOutput, cudaDeviceSynchronize
 import time
-import utils  # Updated file for device control LEDs
 
 def main():
     # Initialize variables and settings
