@@ -11,9 +11,13 @@ buzzer_pin = 38     # BOARD pin 38
 # Setup GPIO pins
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(green_led_pin, GPIO.OUT)
+GPIO.output(green_led_pin, GPIO.LOW)
 GPIO.setup(yellow_led_pin, GPIO.OUT)
+GPIO.output(yellow_led_pin, GPIO.LOW)
 GPIO.setup(red_led_pin, GPIO.OUT)
+GPIO.output(red_led_pin, GPIO.LOW)
 GPIO.setup(buzzer_pin, GPIO.OUT)
+GPIO.output(buzzer_pin, GPIO.LOW)
 
 # Register cleanup to be called on exit
 atexit.register(GPIO.cleanup)
