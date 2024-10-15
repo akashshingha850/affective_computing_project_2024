@@ -11,14 +11,14 @@ import pandas as pd
 # Paths to the folders containing images for "Close" and "Open" classes
 close_image_folder = "/home/jetson/jetson-inference/python/training/classification/data/mrl/test/close"
 open_image_folder = "/home/jetson/jetson-inference/python/training/classification/data/mrl/test/open"
-model_folder = "/home/jetson/jetson-inference/data/networks/sleep/"
+model_folder = "/home/jetson/jetson-inference/python/training/classification/models/mrl_googlenet/"
 
 # Ensure the model folder exists for saving results
 os.makedirs(model_folder, exist_ok=True)
 
 # Load the custom eye classification network (resnet18.onnx) with appropriate input/output blobs and label file
-net = imageNet(model="/home/jetson/jetson-inference/data/networks/sleep/resnet18.onnx", 
-               labels="/home/jetson/jetson-inference/data/networks/sleep/labels.txt", 
+net = imageNet(model="/home/jetson/jetson-inference/python/training/classification/models/mrl_googlenet/googlenet.onnx", 
+               labels="/home/jetson/jetson-inference/python/training/classification/data/mrl/labels.txt", 
                input_blob="input_0", 
                output_blob="output_0")
 

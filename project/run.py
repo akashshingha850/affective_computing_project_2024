@@ -3,6 +3,7 @@ import os
 import signal
 import subprocess
 import Jetson.GPIO as GPIO
+import utils
 
 # Pin Definitions
 switch_pin = 7  # Use BOARD pin 7 for the switch
@@ -41,7 +42,9 @@ def main():
                 application_process.terminate()  # Terminate the process
                 application_process = None
                 if was_running:
-                    print("Stopping application...")
+                    print("Application Stopped")
+                    utils.turn_off_all()  # Turn off all LEDs
+
                     was_running = False  # Update the running state
 
         # Check if the application crashed and restart if needed

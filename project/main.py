@@ -47,7 +47,7 @@ def main():
                     close_start_time = time.time()  # Mark when eyes closed
 
                 eyes_closed_duration = time.time() - close_start_time
-                if eyes_closed_duration >= 3:
+                if eyes_closed_duration >= 2:
                     utils.turn_on_red()  # Turn on red LED if closed for 3 seconds
                 else:
                     utils.turn_on_yellow()  # Turn on yellow LED otherwise
