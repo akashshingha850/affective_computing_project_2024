@@ -64,6 +64,7 @@ def buzzer_off():
 
 # Cleanup GPIO on exit
 def cleanup():
+    turn_off_all()
     GPIO.cleanup()
 
 

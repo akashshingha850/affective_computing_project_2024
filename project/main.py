@@ -1,3 +1,4 @@
+#main.py
 import cv2
 import utils  # Handles LED and GPIO control
 from face_eye_detection import FaceEyeDetector
@@ -9,8 +10,8 @@ def main():
     eye_margin_x = 15
     eye_margin_y = 20
     face_model = "facedetect"
-    eye_model = "/home/jetson/jetson-inference/data/networks/sleep/resnet18.onnx"
-    labels = "/home/jetson/jetson-inference/data/networks/sleep/labels.txt"
+    eye_model = "/home/jetson/jetson-inference/python/training/classification/models/mrl/resnet18.onnx"
+    labels = "/home/jetson/jetson-inference/python/training/classification/models/mrl/labels.txt"
 
     # Initialize video source and output
     camera = videoSource("/dev/video0")
@@ -67,11 +68,13 @@ def main():
 
     except Exception as e:
         print(f"An error occurred: {e}")
+        utils.turn_off_all()  # Turn off all LEDs
 
     finally:
         # Perform cleanup
         face_eye_detector.cleanup()  # Cleanup face and eye detector resources
         cv2.destroyAllWindows()  # Ensure any OpenCV windows are closed
+        utils.turn_off_all() # Turn off all LEDs
         utils.cleanup()  # Clean up GPIO on exit
 
 if __name__ == "__main__":
