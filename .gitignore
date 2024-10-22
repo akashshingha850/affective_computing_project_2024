@@ -3,7 +3,9 @@ data/*.jpg
 data/*.png
 
 # VGG16 model
-model/mrl_vgg16/*.pth
-model/mrl_vgg16/*.tar
+model/**/*.pth
+model/**/*.tar
+
+
 model/mrl_vgg16/*.onnx
 model/mrl_vgg16/*.engine
