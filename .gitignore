@@ -1,0 +1,9 @@
+# Ignore all .jpg and .png files in the data folder
+data/*.jpg
+data/*.png
+
+# VGG16 model
+model/vgg16/*.pth
+model/vgg16/*.tar
+model/vgg16/*.onnx
+model/vgg16/*.engine
