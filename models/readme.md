@@ -11,7 +11,7 @@ Please download the model files and place them in this folder before running the
 ## Instructions:
 1. Go to the [GitHub Release](https://github.com/akashshingha850/affective_computing_project/releases/tag/model).
 2. Download the required files (e.g., `.onnx`, `.engine`).
-3. Move the downloaded files into this folder followed by a model folder (ie:base_dir/models/mrl_vgg16/vgg16.onnx).
+3. Move the downloaded files into this folder followed by a model folder (ie:`base_dir/models/mrl_vgg16/vgg16.onnx`).
 
 If you encounter any issues or need further assistance, please refer to the main repository's [README.md](https://github.com/akashshingha850/affective_computing_project) for more details.
 
