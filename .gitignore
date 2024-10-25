@@ -1,5 +1,5 @@
 # Ignore all .jpg and .png files in the data folder
-data/**/*.jpg
+#data/**/*.jpg
 data/**/*.png
 mrl_eye_dataset.zip
 
