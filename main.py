@@ -10,8 +10,8 @@ def main():
     eye_margin_x = 15
     eye_margin_y = 20
     face_model = "facedetect"
-    eye_model = "/home/jetson/jetson-inference/python/training/classification/models/mrl_vgg16/vgg16.onnx"
-    labels = "/home/jetson/jetson-inference/python/training/classification/models/mrl/labels.txt"
+    eye_model = "models/mrl_vgg19/vgg19.onnx"
+    labels = "data/labels.txt"
 
     # Initialize video source and output
     camera = videoSource("/dev/video0")

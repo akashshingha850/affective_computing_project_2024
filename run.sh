@@ -11,5 +11,5 @@ trap cleanup SIGINT SIGTERM
 
 # Infinite loop to keep the script running
 while true; do
-    /bin/python3 /home/jetson/affective_computing/project/run.py
+    /bin/python3 /home/jetson/affective_computing/run.py
 done

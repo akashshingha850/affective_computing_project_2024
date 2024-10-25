@@ -13,7 +13,7 @@ GPIO.setup(switch_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)  # Switch with pull-up
 
 def run_application():
     """Run the main application (main.py) and return the process."""
-    return subprocess.Popen(["python3", "/home/jetson/affective_computing/project/main.py"])
+    return subprocess.Popen(["python3", "/home/jetson/affective_computing/main.py"])
 
 def signal_handler(sig, frame):
     """Handle termination signals (like Ctrl+C) to ensure GPIO cleanup."""

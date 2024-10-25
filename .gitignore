@@ -1,11 +1,12 @@
 # Ignore all .jpg and .png files in the data folder
 data/**/*.jpg
 data/**/*.png
+data/*.zip
 
 # model checkpoints and best version
-model/**/*.pth
-model/**/*.tar
+models/**/*.pth
+models/**/*.tar
 
 # model onnx and tensorrt engine
-model/mrl_vgg16/*.onnx
-model/mrl_vgg16/*.engine
+models/**/*.onnx
+models/**/*.engine

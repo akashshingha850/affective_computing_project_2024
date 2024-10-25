@@ -3,8 +3,7 @@ import shutil
 from sklearn.model_selection import train_test_split
 
 # Define paths
-
-base_dir = 'data/mrl'  # Directory containing the dataset # EDIT THIS
+base_dir = 'data/mrl'
 categories = ['Close-Eyes', 'Open-Eyes']
 splits = ['train', 'val', 'test']
 

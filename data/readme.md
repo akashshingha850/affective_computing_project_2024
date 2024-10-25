@@ -1,25 +1,25 @@
 # MRL Infrared Eye Images Dataset for Drowsiness Detection (Forked Version)
 
-This dataset is a **forked version** of the original MRL Eye Dataset, containing infrared eye images categorized into **Open** and **Closed** states. It is split into training, validation, and test sets, comprising over **85,000 images** captured under various lighting conditions using multiple sensors. This dataset is tailored for tasks such as eye detection, gaze estimation, blink detection, and drowsiness analysis in computer vision.
+This dataset is a **forked version** of the original MRL Eye Dataset, containing infrared eye images categorized into **Open** and **Close** states. It is split into training, validation, and test sets, comprising over **85,000 images** captured under various lighting conditions using multiple sensors. This dataset is tailored for tasks such as eye detection, gaze estimation, blink detection, and drowsiness analysis in computer vision.
 
 ## Dataset Structure
 
-- **Train**: Open (25,770), Closed (25,167)
-- **Validation**: Open (8,591), Closed (8,389)
-- **Test**: Open (8,591), Closed (8,390)
+- **Train**: Open (25,770), Close (25,167)
+- **Validation**: Open (8,591), Close (8,389)
+- **Test**: Open (8,591), Close (8,390)
 
 ## Directory Tree
 ```plaintext
 data/
 ├── train/
 │   ├── open/
-│   └── closed/
+│   └── close/
 ├── val/
 │   ├── open/
-│   └── closed/
+│   └── close/
 └── test/
     ├── open/
-    └── closed/ 
+    └── close/ 
 ```
 
 
@@ -39,7 +39,7 @@ The **MRL Eye Dataset** is a large-scale dataset of human eye images designed fo
 - **Subject ID**: Data from 37 individuals (33 men and 4 women).
 - **Gender**: 0 for male, 1 for female.
 - **Glasses**: 0 (no glasses), 1 (glasses).
-- **Eye State**: 0 (closed), 1 (open).
+- **Eye State**: 0 (close), 1 (open).
 - **Reflections**: 0 (none), 1 (small), 2 (big).
 - **Lighting Conditions**: 0 (bad), 1 (good).
 - **Sensor ID**: Data captured by three sensors:
@@ -62,7 +62,7 @@ For any questions about the dataset, please contact [Radovan Fusek](http://mrl.c
 
 ## Example Images
 
-The dataset includes both open and closed eye images. Below are examples:
+The dataset includes both open and close eye images. Below are examples:
 
 ![Eye Image Example](http://mrl.cs.vsb.cz/images/eyedataset/eyedataset01.png)
 

@@ -9,9 +9,9 @@ from sklearn.metrics import confusion_matrix, classification_report
 import pandas as pd
 
 # Paths to the folders containing images for "Sleepy" and "Awake" classes
-sleepy_image_folder = "data/test/sleepy"
-awake_image_folder = "data/test/awake"
-model_folder = "model/mrl_vgg16"
+sleepy_image_folder = "data/test/close"
+awake_image_folder = "data/test/open"
+model_folder = "models/mrl_vgg19"
 
 # Extract model name from the model path
 model_name = os.path.basename(model_folder)
@@ -20,8 +20,8 @@ model_name = os.path.basename(model_folder)
 os.makedirs(model_folder, exist_ok=True)
 
 # Load the custom eye classification network (vgg16.onnx) with appropriate input/output blobs and label file
-net = imageNet(model=f"{model_folder}/vgg16.onnx", 
-               labels="/data/labels.txt", 
+net = imageNet(model=f"{model_folder}/vgg19.onnx", 
+               labels="data/labels.txt", 
                input_blob="input_0", 
                output_blob="output_0")
 
@@ -67,7 +67,7 @@ print("\nConfusion Matrix:")
 print(conf_matrix)
 
 # Print classification report
-class_names = ["Sleepy", "Awake"]
+class_names = ["close", "open"]
 classification_report_str = classification_report(ground_truth, predictions, target_names=class_names)
 print("\nClassification Report:")
 print(classification_report_str)
