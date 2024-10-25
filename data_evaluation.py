@@ -12,10 +12,10 @@ import time
 # Paths to the folders containing images for "Close" and "Open" classes
 close_image_folder = "data/test/close"
 open_image_folder = "data/test/open"
-model_folder = "models/mrl_vgg16"
-model_name = "vgg16.onnx"
+model_folder = "models/mrl_alexnet"
+model_name = "alexnet.onnx"
 # Extract model name from the model path
-model_name = os.path.basename(model_folder)
+#model_name = os.path.basename(model_folder)
 
 # Ensure the model folder exists for saving results
 os.makedirs(model_folder, exist_ok=True)
