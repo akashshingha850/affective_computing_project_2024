@@ -1,7 +1,7 @@
 # Ignore all .jpg and .png files in the data folder
 data/**/*.jpg
 data/**/*.png
-data/*.zip
+mrl_eye_dataset.zip
 
 # model checkpoints and best version
 models/**/*.pth
@@ -10,4 +10,4 @@ models/**/*.tar
 # model onnx and tensorrt engine
 models/**/*.onnx
 models/**/*.engine
-mrl_eye_dataset.zip
+
