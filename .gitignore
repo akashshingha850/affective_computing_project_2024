@@ -10,3 +10,4 @@ models/**/*.tar
 # model onnx and tensorrt engine
 models/**/*.onnx
 models/**/*.engine
+mrl_eye_dataset.zip
