@@ -11,7 +11,7 @@ import pandas as pd
 # Paths to the folders containing images for "Sleepy" and "Awake" classes
 sleepy_image_folder = "data/test/close"
 awake_image_folder = "data/test/open"
-model_folder = "models/mrl_vgg19"
+model_folder = "models/mrl_vgg16"
 
 # Extract model name from the model path
 model_name = os.path.basename(model_folder)
@@ -20,7 +20,7 @@ model_name = os.path.basename(model_folder)
 os.makedirs(model_folder, exist_ok=True)
 
 # Load the custom eye classification network (vgg16.onnx) with appropriate input/output blobs and label file
-net = imageNet(model=f"{model_folder}/vgg19.onnx", 
+net = imageNet(model=f"{model_folder}/vgg16.onnx", 
                labels="data/labels.txt", 
                input_blob="input_0", 
                output_blob="output_0")
