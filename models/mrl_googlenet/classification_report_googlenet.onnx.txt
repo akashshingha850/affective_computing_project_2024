@@ -1,0 +1,11 @@
+              precision    recall  f1-score   support
+
+       close       0.98      0.97      0.97      8390
+        open       0.97      0.98      0.97      8591
+
+    accuracy                           0.97     16981
+   macro avg       0.97      0.97      0.97     16981
+weighted avg       0.97      0.97      0.97     16981
+
+
+Average Latency per Image: 0.0028 seconds
