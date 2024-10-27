@@ -9,9 +9,9 @@ def main():
     # Initialize variables and settings
     eye_margin_x = 15
     eye_margin_y = 20
-    face_model = "facedetect"
-    eye_model = "models/mrl_vgg19/vgg19.onnx"
-    labels = "data/labels.txt"
+    face_model = "facedetect"               # Face detection model  
+    eye_model = "models/mrl_vgg16/vgg16.onnx"  # Path to the eye classification model
+    labels = "data/labels.txt"              # Path to the labels file
 
     # Initialize video source and output
     camera = videoSource("/dev/video0")

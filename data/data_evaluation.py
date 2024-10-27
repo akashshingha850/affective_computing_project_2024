@@ -12,8 +12,8 @@ import time
 # Paths to the folders containing images for "Close" and "Open" classes
 close_image_folder = "data/test/close"
 open_image_folder = "data/test/open"
-model_folder = "models/mrl_vgg19"
-model_name = "vgg19.onnx"
+model_folder = "/home/jetson/affective_computing_project_2024/models/mrl_vgg16"  # Path to the model folder (absolute path)
+model_name = "vgg16.onnx"
 # Extract model name from the model path
 #model_name = os.path.basename(model_folder)
 
