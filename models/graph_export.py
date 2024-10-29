@@ -7,6 +7,7 @@ logfile = 'models/mrl_vgg16/tensorboard/20241019_022420/events.out.tfevents.1729
 dataset = tf.data.TFRecordDataset(logfile)
 
 export_dir = 'models/mrl_vgg16'  # Change this to your model folder
+text_file_path = os.path.join(export_dir, 'log_summary.txt')
 # Ensure the export directory exists
 os.makedirs(export_dir, exist_ok=True)
 
@@ -55,3 +56,15 @@ plt.grid()
 plt.tight_layout()
 plt.savefig(os.path.join(export_dir,'loss_accuracy_curves.png'))
 plt.show()
+
+
+# Write the collected data to a text file
+with open(text_file_path, 'w') as f:
+    f.write("Step, Train Loss, Validation Loss, Train Accuracy, Validation Accuracy\n")
+    for i in range(len(steps)):
+        f.write(f"{steps[i]}, {train_loss[i] if i < len(train_loss) else 'N/A'}, "
+                 f"{val_loss[i] if i < len(val_loss) else 'N/A'}, "
+                 f"{train_accuracy[i] if i < len(train_accuracy) else 'N/A'}, "
+                 f"{val_accuracy[i] if i < len(val_accuracy) else 'N/A'}\n")
+
+print(f'Data exported to {text_file_path}')
