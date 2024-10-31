@@ -6,7 +6,7 @@ mrl_eye_dataset.zip
 # model checkpoints and best version
 models/**/*.pth
 models/**/*.tar
-
+models/**/*.zip
 # model onnx and tensorrt engine
 models/**/*.onnx
 models/**/*.engine
