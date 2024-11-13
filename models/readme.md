@@ -2,9 +2,7 @@
 
 The model files for this project are too large to store directly in this repository.
 
-You can download the required model files from the following GitHub Release:
-
-[VGG16 Model Files - GitHub Release](https://github.com/akashshingha850/affective_computing_project/releases/tag/model)
+You can download the required model files from the following GitHub Release](https://github.com/akashshingha850/affective_computing_project/releases)
 
 Please download the model files and place them in this folder before running the project.
 
