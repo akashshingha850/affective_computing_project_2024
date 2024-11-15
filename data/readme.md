@@ -64,7 +64,7 @@ For any questions about the dataset, please contact [Radovan Fusek](http://mrl.c
 
 The dataset includes both open and close eye images. Below are examples:
 
-![Eye Image Example](/data/collage.jpg)
+![Eye Image Example](/data/assets/collage.jpg)
 
 ## References
 

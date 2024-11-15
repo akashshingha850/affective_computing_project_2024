@@ -17,6 +17,9 @@ This project aims to develop a real-time drowsiness detection system for drivers
 - **Feedback System**: Uses LEDs and a buzzer to alert the driver based on drowsiness levels.
 - **Face and Eye Detection**: Utilizes DetectNet v2 and MediaPipe Iris for accurate facial and eye landmark detection under various conditions.
 
+![Overview](data/assets/overview.png)
+
+
 ## Methodology
 
 1. **Data Collection**: Utilizes the MRL Infrared Eye Dataset, with images categorized as "Open-Eyes" and "Close-Eyes" to train the model.
@@ -27,6 +30,8 @@ This project aims to develop a real-time drowsiness detection system for drivers
    - **Eye Detection**: Identifies eye regions for classification.
    - **Eye State Classification**: Determines eye state as open or closed.
 5. **Feedback System**: Provides escalating alerts with LEDs and a buzzer based on continuous eye state monitoring.
+![Architecture](data/assets/architecture.png)
+
 
 ## Performance
 
