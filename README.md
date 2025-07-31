@@ -5,7 +5,9 @@
 This project aims to develop a real-time drowsiness detection system for drivers, utilizing NVIDIA's Jetson Orin Nano and edge computing technology. By leveraging deep learning and edge processing, this system provides timely alerts to prevent accidents caused by driver fatigue, with a focus on privacy and low-latency processing.
 
 ## Authors
-**Akash Bappy**: [akash.bappy@student.oulu.fi](mailto:akash.bappy@student.oulu.fi)  **Mitun Kanti Paul**: [mitunkantipaul.sec@gmai.com](mailto:mitunkantipaul.sec@gmail.com) **Ullash Chouwdhury**: [ullash.chowdhury@student.oulu.fi](mailto:ullash.chowdhury@student.oulu.fi)
+- **Akash Bappy**: [akash.bappy@student.oulu.fi](mailto:akash.bappy@student.oulu.fi)  
+- **Mitun Kanti Paul**: [mitunkantipaul.sec@gmai.com](mailto:mitunkantipaul.sec@gmail.com) 
+- **Ullash Chouwdhury**: [ullash.chowdhury@student.oulu.fi](mailto:ullash.chowdhury@student.oulu.fi)
 
 ## Features
 
